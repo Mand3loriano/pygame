@@ -5,8 +5,11 @@ from random import randint
 
 pygame.init()
 
-musica_fundo = pygame.mixer.music.load('musicas/fundo.mp3')
+pygame.mixer.music.set_volume(0.1)
+musica_fundo = pygame.mixer.music.load('fundo.mp3')
+barulho_colisao = pygame.mixer.Sound('colisão.wav')
 pygame.mixer.music.play(-1)
+
 
 largura = 640 
 altura = 480
@@ -33,16 +36,19 @@ while True:
         if event.type == QUIT:
             pygame.quit() 
             exit()
-        '''
         if event.type == KEYDOWN:
-            if event.key == K_a:
-                x = x - 20
-            if event.key == K_d:
-                x = x + 20
-            if event.key == K_w:
-                y = y - 20
-            if event.key == K_s:
-                y = y + 20'''
+          if event.key == K_ESCAPE:
+            pygame.quit() 
+            exit()
+
+    if pygame.key.get_pressed()[K_LEFT]:
+        x = x - 20
+    if pygame.key.get_pressed()[K_RIGHT]:
+        x = x + 20
+    if pygame.key.get_pressed()[K_UP]:
+        y = y - 20
+    if pygame.key.get_pressed()[K_DOWN]:
+        y = y + 20
 
     if pygame.key.get_pressed()[K_a]:
         x = x - 20
@@ -60,7 +66,6 @@ while True:
         x_azul = randint(40,600)
         y_azul = randint(50,430)
         pontos = pontos + 1
+        barulho_colisao.play()
     tela.blit(texto, (450,40))
     pygame.display.update()
-
-
